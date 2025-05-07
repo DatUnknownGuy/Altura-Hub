@@ -5,72 +5,97 @@ local screenGui = nil
 
 local function startPositionTracker()
     if screenGui then screenGui:Destroy() end
+
     local character = player.Character or player.CharacterAdded:Wait()
     rootPart = character:WaitForChild("HumanoidRootPart")
+
     screenGui = Instance.new("ScreenGui")
     screenGui.Name = "PositionTracker"
-    screenGui.Parent = player:WaitForChild("PlayerGui")
     screenGui.ResetOnSpawn = false
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 300, 0, 120)
-    frame.Position = UDim2.new(0.5, -150, 0.1, 0)
-    frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    frame.Size = UDim2.new(0, 340, 0, 180)
+    frame.Position = UDim2.new(0.5, -170, 0.5, -90)
+    frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     frame.BorderSizePixel = 0
+    frame.AnchorPoint = Vector2.new(0.5, 0.5)
     frame.Active = true
     frame.Draggable = true
     frame.Parent = screenGui
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = frame
+
     local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, 0, 0, 25)
+    title.Size = UDim2.new(1, 0, 0, 40)
+    title.Position = UDim2.new(0, 0, 0, 0)
     title.BackgroundTransparency = 1
     title.Text = "Position Tracker"
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    title.Font = Enum.Font.SourceSansBold
-    title.TextSize = 20
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 24
     title.Parent = frame
-    local positionLabel = Instance.new("TextLabel")
-    positionLabel.Position = UDim2.new(0, 10, 0, 35)
-    positionLabel.Size = UDim2.new(1, -20, 0, 20)
-    positionLabel.BackgroundTransparency = 1
-    positionLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-    positionLabel.Font = Enum.Font.SourceSans
-    positionLabel.TextSize = 18
-    positionLabel.TextXAlignment = Enum.TextXAlignment.Left
-    positionLabel.Text = "X: 0, Y: 0, Z: 0"
-    positionLabel.Parent = frame
-    local copyButton = Instance.new("TextButton")
-    copyButton.Position = UDim2.new(0.5, -100, 1, -35)
-    copyButton.Size = UDim2.new(0, 80, 0, 25)
-    copyButton.Text = "Copy"
-    copyButton.Font = Enum.Font.SourceSansBold
-    copyButton.TextSize = 18
-    copyButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    copyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    copyButton.Parent = frame
-    local exitButton = Instance.new("TextButton")
-    exitButton.Position = UDim2.new(0.5, 20, 1, -35)
-    exitButton.Size = UDim2.new(0, 80, 0, 25)
-    exitButton.Text = "Exit"
-    exitButton.Font = Enum.Font.SourceSansBold
-    exitButton.TextSize = 18
-    exitButton.BackgroundColor3 = Color3.fromRGB(100, 40, 40)
-    exitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    exitButton.Parent = frame
+
+    local posLabel = Instance.new("TextLabel")
+    posLabel.Size = UDim2.new(1, -20, 0, 30)
+    posLabel.Position = UDim2.new(0, 10, 0, 50)
+    posLabel.BackgroundTransparency = 1
+    posLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    posLabel.Font = Enum.Font.Gotham
+    posLabel.TextSize = 20
+    posLabel.TextXAlignment = Enum.TextXAlignment.Left
+    posLabel.Text = "X: 0, Y: 0, Z: 0"
+    posLabel.Parent = frame
+
+    local copyBtn = Instance.new("TextButton")
+    copyBtn.Size = UDim2.new(0, 120, 0, 35)
+    copyBtn.Position = UDim2.new(0.5, -130, 1, -45)
+    copyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    copyBtn.Text = "Copy"
+    copyBtn.Font = Enum.Font.GothamBold
+    copyBtn.TextColor3 = Color3.new(1, 1, 1)
+    copyBtn.TextSize = 18
+    copyBtn.Parent = frame
+
+    local exitBtn = Instance.new("TextButton")
+    exitBtn.Size = UDim2.new(0, 120, 0, 35)
+    exitBtn.Position = UDim2.new(0.5, 10, 1, -45)
+    exitBtn.BackgroundColor3 = Color3.fromRGB(100, 40, 40)
+    exitBtn.Text = "Exit"
+    exitBtn.Font = Enum.Font.GothamBold
+    exitBtn.TextColor3 = Color3.new(1, 1, 1)
+    exitBtn.TextSize = 18
+    exitBtn.Parent = frame
+
+    local c1 = Instance.new("UICorner")
+    c1.CornerRadius = UDim.new(0, 8)
+    c1.Parent = copyBtn
+    local c2 = Instance.new("UICorner")
+    c2.CornerRadius = UDim.new(0, 8)
+    c2.Parent = exitBtn
+
     local currentPosition = "X: 0, Y: 0, Z: 0"
     if updateConnection then updateConnection:Disconnect() end
+
     updateConnection = game:GetService("RunService").RenderStepped:Connect(function()
         if rootPart then
             local pos = rootPart.Position
             currentPosition = "X: " .. math.floor(pos.X) .. ", Y: " .. math.floor(pos.Y) .. ", Z: " .. math.floor(pos.Z)
-            positionLabel.Text = currentPosition
+            posLabel.Text = currentPosition
         end
     end)
-    copyButton.MouseButton1Click:Connect(function()
+
+    copyBtn.MouseButton1Click:Connect(function()
         setclipboard(currentPosition)
-        copyButton.Text = "Copied!"
-        task.wait(1)
-        copyButton.Text = "Copy"
+        copyBtn.Text = "Copied!"
+        task.delay(1, function()
+            copyBtn.Text = "Copy"
+        end)
     end)
-    exitButton.MouseButton1Click:Connect(function()
+
+    exitBtn.MouseButton1Click:Connect(function()
         if updateConnection then updateConnection:Disconnect() end
         screenGui:Destroy()
     end)
