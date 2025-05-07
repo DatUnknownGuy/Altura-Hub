@@ -186,13 +186,18 @@ end
 playerDropdown:SetValues(playerDropdown.Values)
 
 Tabs.Information:CreateParagraph("Paragraph", {
-    Title = "Information",
+    Title = "Who created this script?",
     Content = "This script was created by Dat1UnknownGuy and the helper, pxrson."
 })
 
 Tabs.Information:CreateParagraph("Paragraph", {
     Title = "Information",
     Content = "Don't expect this script to be the best, I made it for fun."
+})
+
+Tabs.Information:CreateParagraph("Paragraph", {
+    Title = "Discord",
+    Content = "Do you mind joining my discord? If not, here the invite code: vFmU8pNcfU"
 })
 
 Tabs.Credits:CreateParagraph("Paragraph", {
