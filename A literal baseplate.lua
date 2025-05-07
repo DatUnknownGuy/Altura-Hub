@@ -15,8 +15,8 @@ local Window = Library:CreateWindow{
 
 local Tabs = {
     Main = Window:CreateTab{ Title = "Main", Icon = "layout-dashboard" },
-    Movement = Window:CreateTab{ Title = "Movement", Icon = "run" },
-    Utilities = Window:CreateTab{ Title = "Utilities", Icon = "tool" },
+    Movement = Window:CreateTab{ Title = "Movement", Icon = "hand" },
+    Utilities = Window:CreateTab{ Title = "Utilities", Icon = "pen-line" },
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
