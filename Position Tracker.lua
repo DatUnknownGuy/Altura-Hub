@@ -30,22 +30,22 @@ local function startPositionTracker()
 
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1, 0, 0, 40)
-    title.Position = UDim2.new(0, 0, 0, 0)
+    title.Position = UDim2.new(0, 0, 0, 5)
     title.BackgroundTransparency = 1
     title.Text = "Position Tracker"
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.Font = Enum.Font.GothamBold
-    title.TextSize = 24
+    title.TextSize = 26
     title.Parent = frame
 
     local posLabel = Instance.new("TextLabel")
-    posLabel.Size = UDim2.new(1, -20, 0, 30)
-    posLabel.Position = UDim2.new(0, 10, 0, 50)
+    posLabel.Size = UDim2.new(1, -40, 0, 35)
+    posLabel.Position = UDim2.new(0.5, -150, 0, 60)
     posLabel.BackgroundTransparency = 1
     posLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-    posLabel.Font = Enum.Font.Gotham
+    posLabel.Font = Enum.Font.GothamMedium
     posLabel.TextSize = 20
-    posLabel.TextXAlignment = Enum.TextXAlignment.Left
+    posLabel.TextXAlignment = Enum.TextXAlignment.Center
     posLabel.Text = "X: 0, Y: 0, Z: 0"
     posLabel.Parent = frame
 
