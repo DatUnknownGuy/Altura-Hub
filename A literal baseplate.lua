@@ -21,8 +21,6 @@ local Tabs = {
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
-local player = game.Players.LocalPlayer
-
 Tabs.Movement:CreateToggle("WalkSpeedToggle", {Title = "WalkSpeed", Default = false})
 
 Tabs.Movement:CreateSlider("WalkSpeedSlider", {
