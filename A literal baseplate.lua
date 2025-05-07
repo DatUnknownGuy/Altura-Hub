@@ -17,9 +17,20 @@ local Tabs = {
     Main = Window:CreateTab{ Title = "Main", Icon = "layout-dashboard" },
     Movement = Window:CreateTab{ Title = "Movement", Icon = "hand" },
     Utilities = Window:CreateTab{ Title = "Utilities", Icon = "pen-line" },
+    Information = Window:CreateTab{ Title = "Information", Icon = "info" },
     Credits = Window:CreateTab{ Title = "Credits", Icon = "badge-info" },
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
+
+local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
+    Title = "Information",
+    Content = "This script was created by "Dat1UnknownGuy" and the helper "pxrson"."
+})
+
+local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
+    Title = "Information",
+    Content = "Don't expect this script to be the best, I made it for fun."
+})
 
 local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
     Title = "Main Tab Information",
@@ -114,21 +125,18 @@ Tabs.Utilities:CreateToggle("InfiniteJumpToggle", {
 Tabs.Utilities:CreateToggle("LockPositionToggle", {
     Title = "Lock Position",
     Default = false,
-    Callback = function(enabled)
-        if enabled then
-            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                local pos = player.Character.HumanoidRootPart.Position
-                lockConnection = game:GetService("RunService").Heartbeat:Connect(function()
-                    local hrp = player.Character:FindFirstChild("HumanoidRootPart")
-                    if hrp then
-                        hrp.CFrame = CFrame.new(pos, pos + workspace.CurrentCamera.CFrame.LookVector)
-                        hrp.Velocity = Vector3.zero
-                        player.Character:FindFirstChildOfClass("Humanoid"):ChangeState(11)
-                    end
-                end)
-            end
+    Callback = function(Value)
+        if Value then
+            local currentPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            getgenv().posLock = game:GetService("RunService").Heartbeat:Connect(function()
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = currentPos
+                end
+            end)
         else
-            if lockConnection then lockConnection:Disconnect() end
+            if getgenv().posLock then
+                getgenv().posLock:Disconnect()
+            end
         end
     end
 })
