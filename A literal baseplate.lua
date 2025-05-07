@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercon
 
 local Window = Library:CreateWindow{
     Title = "A literal baseplate",
-    SubTitle = "by pxrson & datunknownguy",
+    SubTitle = "",
     TabWidth = 160,
     Size = UDim2.fromOffset(630, 400),
     MinSize = Vector2.new(470, 380),
@@ -20,6 +20,16 @@ local Tabs = {
     Credits = Window:CreateTab{ Title = "Credits", Icon = "badge-info" },
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
+
+local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
+    Title = "Main Tab Information",
+    Content = "This is the Main tab, you will find all the main stuff below."
+})
+
+Tabs.Main:CreateToggle("Test", {
+    Title = "Button Test",
+    Content = "This is the Main tab button test thingy"
+})
 
 local Options = Library.Options
 local player = game.Players.LocalPlayer
@@ -98,6 +108,62 @@ Tabs.Utilities:CreateToggle("InfiniteJumpToggle", {
             end)
         else
             if infiniteJumpConn then infiniteJumpConn:Disconnect() end
+        end
+    end
+})
+
+Tabs.Utilities:CreateToggle("LockPositionToggle", {
+    Title = "Lock Position",
+    Default = false,
+    Callback = function(enabled)
+        if enabled then
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local pos = player.Character.HumanoidRootPart.Position
+                lockConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                    local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+                    if hrp then
+                        hrp.CFrame = CFrame.new(pos, pos + workspace.CurrentCamera.CFrame.LookVector)
+                        hrp.Velocity = Vector3.zero
+                        player.Character:FindFirstChildOfClass("Humanoid"):ChangeState(11)
+                    end
+                end)
+            end
+        else
+            if lockConnection then lockConnection:Disconnect() end
+        end
+    end
+})
+
+local playerDropdown = Tabs.Utilities:CreateDropdown("SelectPlayer", {
+    Title = "Select Player",
+    Values = {},
+    Multi = false,
+    Default = 1
+})
+
+local followRunner = nil
+
+Tabs.Utilities:CreateToggle("FollowBehindToggle", {
+    Title = "Follow Behind Player",
+    Default = false,
+    Callback = function(enabled)
+        if followRunner then followRunner:Disconnect() end
+        if enabled then
+            local targetName = Options.SelectPlayer.Value
+            local targetPlayer = game.Players:FindFirstChild(targetName)
+            if targetPlayer then
+                followRunner = game:GetService("RunService").Heartbeat:Connect(function()
+                    local char = player.Character
+                    local targetChar = targetPlayer.Character
+                    if char and targetChar and char:FindFirstChild("HumanoidRootPart") and targetChar:FindFirstChild("HumanoidRootPart") then
+                        local myHRP = char.HumanoidRootPart
+                        local targetHRP = targetChar.HumanoidRootPart
+                        local direction = (targetHRP.Position - myHRP.Position).Unit
+                        local behindPosition = targetHRP.Position - direction * 3
+                        myHRP.CFrame = CFrame.new(behindPosition, targetHRP.Position)
+                    end
+                end)
+            end
         end
     end
 })
