@@ -178,7 +178,7 @@ for _, p in ipairs(game.Players:GetPlayers()) do
 end
 playerDropdown:SetValues(playerDropdown.Values)
 
-local Paragraph = Tabs.Credits:CreateParagraph("Paragraph", {
+local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
     Title = "Main Tab Information",
     Content = "This is the Main tab, you will find all the main stuff below."
 })
