@@ -21,6 +21,16 @@ local Tabs = {
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
+local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
+    Title = "Main Tab Information",
+    Content = "This is the Main tab, you will find all the main stuff below."
+})
+
+Tabs.Main:CreateToggle("Test", {
+    Title = "Button Test",
+    Content = "This is the Main tab button test thingy"
+})
+
 local Options = Library.Options
 local player = game.Players.LocalPlayer
 
@@ -177,11 +187,6 @@ for _, p in ipairs(game.Players:GetPlayers()) do
     table.insert(playerDropdown.Values, p.Name)
 end
 playerDropdown:SetValues(playerDropdown.Values)
-
-local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
-    Title = "Main Tab Information",
-    Content = "This is the Main tab, you will find all the main stuff below."
-})
 
 local Paragraph = Tabs.Credits:CreateParagraph("Paragraph", {
     Title = "Credits",
