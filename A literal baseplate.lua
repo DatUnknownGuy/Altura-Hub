@@ -17,7 +17,8 @@ local Tabs = {
     Main = Window:CreateTab{ Title = "Main", Icon = "layout-dashboard" },
     Movement = Window:CreateTab{ Title = "Movement", Icon = "hand" },
     Utilities = Window:CreateTab{ Title = "Utilities", Icon = "pen-line" },
-    Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
+    Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" },
+    Credits = Window:CreateTab{ Title = "Credits", Icon = "badge-info" }
 }
 
 local Options = Library.Options
