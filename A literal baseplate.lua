@@ -190,12 +190,12 @@ local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
     Content = "This script was created by "Dat1UnknownGuy" and the helper "pxrson"."
 })
 
-local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
+Tabs.Information:CreateParagraph("Paragraph", {
     Title = "Information",
     Content = "Don't expect this script to be the best, I made it for fun."
 })
 
-local Paragraph = Tabs.Credits:CreateParagraph("Paragraph", {
+Tabs.Credits:CreateParagraph("Paragraph", {
     Title = "Credits",
     Content = "Credits to pxrson and Dat1UnknownGuy"
 })
