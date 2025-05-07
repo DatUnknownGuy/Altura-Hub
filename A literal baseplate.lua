@@ -178,6 +178,16 @@ for _, p in ipairs(game.Players:GetPlayers()) do
 end
 playerDropdown:SetValues(playerDropdown.Values)
 
+local Paragraph = Tabs.Credits:CreateParagraph("Paragraph", {
+    Title = "Main Tab Information",
+    Content = "This is the Main tab, you will find all the main stuff below."
+})
+
+local Paragraph = Tabs.Credits:CreateParagraph("Paragraph", {
+    Title = "Credits",
+    Content = "Credits to pxrson and Dat1UnknownGuy"
+})
+
 SaveManager:SetLibrary(Library)
 InterfaceManager:SetLibrary(Library)
 SaveManager:IgnoreThemeSettings()
