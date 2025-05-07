@@ -22,16 +22,6 @@ local Tabs = {
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
-local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
-    Title = "Information",
-    Content = "This script was created by "Dat1UnknownGuy" and the helper "pxrson"."
-})
-
-local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
-    Title = "Information",
-    Content = "Don't expect this script to be the best, I made it for fun."
-})
-
 local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
     Title = "Main Tab Information",
     Content = "This is the Main tab, you will find all the main stuff below."
@@ -194,6 +184,16 @@ for _, p in ipairs(game.Players:GetPlayers()) do
     table.insert(playerDropdown.Values, p.Name)
 end
 playerDropdown:SetValues(playerDropdown.Values)
+
+local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
+    Title = "Information",
+    Content = "This script was created by "Dat1UnknownGuy" and the helper "pxrson"."
+})
+
+local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
+    Title = "Information",
+    Content = "Don't expect this script to be the best, I made it for fun."
+})
 
 local Paragraph = Tabs.Credits:CreateParagraph("Paragraph", {
     Title = "Credits",
