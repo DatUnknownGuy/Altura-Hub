@@ -185,9 +185,9 @@ for _, p in ipairs(game.Players:GetPlayers()) do
 end
 playerDropdown:SetValues(playerDropdown.Values)
 
-local Paragraph = Tabs.Information:CreateParagraph("Paragraph", {
+Tabs.Information:CreateParagraph("Paragraph", {
     Title = "Information",
-    Content = "This script was created by "Dat1UnknownGuy" and the helper "pxrson"."
+    Content = "This script was created by Dat1UnknownGuy and the helper, pxrson."
 })
 
 Tabs.Information:CreateParagraph("Paragraph", {
@@ -197,7 +197,7 @@ Tabs.Information:CreateParagraph("Paragraph", {
 
 Tabs.Credits:CreateParagraph("Paragraph", {
     Title = "Credits",
-    Content = "Credits to pxrson and Dat1UnknownGuy"
+    Content = "Credits to pxrson"
 })
 
 SaveManager:SetLibrary(Library)
