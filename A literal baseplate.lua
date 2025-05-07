@@ -34,7 +34,7 @@ Tabs.Movement:CreateSlider("WalkSpeedSlider", {
     Title = "Speed",
     Default = 16,
     Min = 0,
-    Max = 500,
+    Max = 200,
     Rounding = 0,
     Callback = function(val)
         if Options.WalkSpeedToggle.Value then
@@ -55,7 +55,7 @@ Tabs.Movement:CreateSlider("JumpPowerSlider", {
     Title = "Jump",
     Default = 50,
     Min = 0,
-    Max = 500,
+    Max = 200,
     Rounding = 0,
     Callback = function(val)
         if Options.JumpPowerToggle.Value then
