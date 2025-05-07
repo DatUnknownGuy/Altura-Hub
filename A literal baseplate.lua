@@ -9,7 +9,7 @@ local Window = Library:CreateWindow{
     Size = UDim2.fromOffset(630, 400),
     MinSize = Vector2.new(470, 380),
     Acrylic = true,
-    Theme = "Dark",
+    Theme = "Vynixu",
     MinimizeKey = Enum.KeyCode.LeftControl
 }
 
@@ -28,7 +28,6 @@ local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
 
 Tabs.Main:CreateToggle("Test", {
     Title = "Button Test",
-    Content = "This is the Main tab button test thingy"
 })
 
 local Options = Library.Options
