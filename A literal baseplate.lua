@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercon
 
 local Window = Library:CreateWindow{
     Title = "A literal baseplate",
-    SubTitle = "",
+    SubTitle = "by pxrson & datunknownguy",
     TabWidth = 160,
     Size = UDim2.fromOffset(630, 400),
     MinSize = Vector2.new(470, 380),
@@ -21,13 +21,15 @@ local Tabs = {
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
-Tabs.Movement:CreateToggle("WalkSpeedToggle", {Title = "WalkSpeed", Default = false})
+local Options = Library.Options
+local player = game.Players.LocalPlayer
 
+Tabs.Movement:CreateToggle("WalkSpeedToggle", {Title = "WalkSpeed", Default = false})
 Tabs.Movement:CreateSlider("WalkSpeedSlider", {
     Title = "Speed",
     Default = 16,
     Min = 0,
-    Max = 500,
+    Max = 200,
     Rounding = 0,
     Callback = function(val)
         if Options.WalkSpeedToggle.Value then
@@ -44,12 +46,11 @@ Options.WalkSpeedToggle:OnChanged(function(val)
 end)
 
 Tabs.Movement:CreateToggle("JumpPowerToggle", {Title = "JumpPower", Default = false})
-
 Tabs.Movement:CreateSlider("JumpPowerSlider", {
     Title = "Jump",
     Default = 50,
     Min = 0,
-    Max = 500,
+    Max = 200,
     Rounding = 0,
     Callback = function(val)
         if Options.JumpPowerToggle.Value then
