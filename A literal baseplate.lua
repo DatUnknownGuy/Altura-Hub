@@ -21,19 +21,10 @@ local Tabs = {
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
-Tabs.Main:CreateToggle("Test", {
-    Title = "Toggle Test", 
-    Content = "This is the Main tab toggle test thingy" 
-})
-
-Tabs.Main:CreateButton("Test", { 
-    Title = "Button Test", 
-    Content = "This is the Main tab button test thingy"
-})
-
 local player = game.Players.LocalPlayer
 
 Tabs.Movement:CreateToggle("WalkSpeedToggle", {Title = "WalkSpeed", Default = false})
+
 Tabs.Movement:CreateSlider("WalkSpeedSlider", {
     Title = "Speed",
     Default = 16,
@@ -55,6 +46,7 @@ Options.WalkSpeedToggle:OnChanged(function(val)
 end)
 
 Tabs.Movement:CreateToggle("JumpPowerToggle", {Title = "JumpPower", Default = false})
+
 Tabs.Movement:CreateSlider("JumpPowerSlider", {
     Title = "Jump",
     Default = 50,
