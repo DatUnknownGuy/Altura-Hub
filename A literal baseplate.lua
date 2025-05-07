@@ -21,12 +21,16 @@ local Tabs = {
     Settings = Window:CreateTab{ Title = "Settings", Icon = "settings" }
 }
 
-local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
-    Title = "Main Tab Information",
-    Content = "This is the Main tab, you will find all the main stuff below."
+Tabs.Main:CreateToggle("Test", {
+    Title = "Toggle Test", 
+    Content = "This is the Main tab toggle test thingy" 
 })
 
-local Options = Library.Options
+Tabs.Main:CreateButton("Test", { 
+    Title = "Button Test", 
+    Content = "This is the Main tab button test thingy"
+})
+
 local player = game.Players.LocalPlayer
 
 Tabs.Movement:CreateToggle("WalkSpeedToggle", {Title = "WalkSpeed", Default = false})
@@ -34,7 +38,7 @@ Tabs.Movement:CreateSlider("WalkSpeedSlider", {
     Title = "Speed",
     Default = 16,
     Min = 0,
-    Max = 200,
+    Max = 500,
     Rounding = 0,
     Callback = function(val)
         if Options.WalkSpeedToggle.Value then
@@ -55,7 +59,7 @@ Tabs.Movement:CreateSlider("JumpPowerSlider", {
     Title = "Jump",
     Default = 50,
     Min = 0,
-    Max = 200,
+    Max = 500,
     Rounding = 0,
     Callback = function(val)
         if Options.JumpPowerToggle.Value then
@@ -103,62 +107,6 @@ Tabs.Utilities:CreateToggle("InfiniteJumpToggle", {
             end)
         else
             if infiniteJumpConn then infiniteJumpConn:Disconnect() end
-        end
-    end
-})
-
-Tabs.Utilities:CreateToggle("LockPositionToggle", {
-    Title = "Lock Position",
-    Default = false,
-    Callback = function(enabled)
-        if enabled then
-            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                local pos = player.Character.HumanoidRootPart.Position
-                lockConnection = game:GetService("RunService").Heartbeat:Connect(function()
-                    local hrp = player.Character:FindFirstChild("HumanoidRootPart")
-                    if hrp then
-                        hrp.CFrame = CFrame.new(pos, pos + workspace.CurrentCamera.CFrame.LookVector)
-                        hrp.Velocity = Vector3.zero
-                        player.Character:FindFirstChildOfClass("Humanoid"):ChangeState(11)
-                    end
-                end)
-            end
-        else
-            if lockConnection then lockConnection:Disconnect() end
-        end
-    end
-})
-
-local playerDropdown = Tabs.Utilities:CreateDropdown("SelectPlayer", {
-    Title = "Select Player",
-    Values = {},
-    Multi = false,
-    Default = 1
-})
-
-local followRunner = nil
-
-Tabs.Utilities:CreateToggle("FollowBehindToggle", {
-    Title = "Follow Behind Player",
-    Default = false,
-    Callback = function(enabled)
-        if followRunner then followRunner:Disconnect() end
-        if enabled then
-            local targetName = Options.SelectPlayer.Value
-            local targetPlayer = game.Players:FindFirstChild(targetName)
-            if targetPlayer then
-                followRunner = game:GetService("RunService").Heartbeat:Connect(function()
-                    local char = player.Character
-                    local targetChar = targetPlayer.Character
-                    if char and targetChar and char:FindFirstChild("HumanoidRootPart") and targetChar:FindFirstChild("HumanoidRootPart") then
-                        local myHRP = char.HumanoidRootPart
-                        local targetHRP = targetChar.HumanoidRootPart
-                        local direction = (targetHRP.Position - myHRP.Position).Unit
-                        local behindPosition = targetHRP.Position - direction * 3
-                        myHRP.CFrame = CFrame.new(behindPosition, targetHRP.Position)
-                    end
-                end)
-            end
         end
     end
 })
