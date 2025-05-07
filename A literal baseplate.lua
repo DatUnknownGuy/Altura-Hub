@@ -123,6 +123,60 @@ Tabs.Utilities:CreateToggle("LockPositionToggle", {
     end
 })
 
+local playerDropdown = Tabs.Utilities:CreateDropdown("SelectPlayer", {
+    Title = "Select Player",
+    Values = {},
+    Multi = false,
+    Default = 1
+})
+
+local followRunner = nil
+
+Tabs.Utilities:CreateToggle("FollowBehindToggle", {
+    Title = "Follow Behind Player",
+    Default = false,
+    Callback = function(enabled)
+        if followRunner then followRunner:Disconnect() end
+        if enabled then
+            local targetName = Options.SelectPlayer.Value
+            local targetPlayer = game.Players:FindFirstChild(targetName)
+            if targetPlayer then
+                followRunner = game:GetService("RunService").Heartbeat:Connect(function()
+                    local char = player.Character
+                    local targetChar = targetPlayer.Character
+                    if char and targetChar and char:FindFirstChild("HumanoidRootPart") and targetChar:FindFirstChild("HumanoidRootPart") then
+                        local myHRP = char.HumanoidRootPart
+                        local targetHRP = targetChar.HumanoidRootPart
+                        local direction = (targetHRP.Position - myHRP.Position).Unit
+                        local behindPosition = targetHRP.Position - direction * 3
+                        myHRP.CFrame = CFrame.new(behindPosition, targetHRP.Position)
+                    end
+                end)
+            end
+        end
+    end
+})
+
+game.Players.PlayerAdded:Connect(function(p)
+    table.insert(playerDropdown.Values, p.Name)
+    playerDropdown:SetValues(playerDropdown.Values)
+end)
+
+game.Players.PlayerRemoving:Connect(function(p)
+    for i, name in ipairs(playerDropdown.Values) do
+        if name == p.Name then
+            table.remove(playerDropdown.Values, i)
+            break
+        end
+    end
+    playerDropdown:SetValues(playerDropdown.Values)
+end)
+
+for _, p in ipairs(game.Players:GetPlayers()) do
+    table.insert(playerDropdown.Values, p.Name)
+end
+playerDropdown:SetValues(playerDropdown.Values)
+
 SaveManager:SetLibrary(Library)
 InterfaceManager:SetLibrary(Library)
 SaveManager:IgnoreThemeSettings()
