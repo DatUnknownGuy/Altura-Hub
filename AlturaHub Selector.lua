@@ -69,7 +69,7 @@ UIListLayout.Parent = buttonFrame
 
 local modes = {
     {
-        Name = "MM2",
+        Name = "Altura Hub MM2",
         Script = "https://raw.githubusercontent.com/DatUnknownGuy/Altura-Hub/refs/heads/main/AlturaHubV1.5.lua"
     },
     {
