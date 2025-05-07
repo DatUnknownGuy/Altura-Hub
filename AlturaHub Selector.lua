@@ -8,8 +8,8 @@ screenGui.IgnoreGuiInset = true
 screenGui.Parent = playerGui
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 340, 0, 260)
-frame.Position = UDim2.new(0.5, -170, 0.5, -130)
+frame.Size = UDim2.new(0, 340, 0, 320)
+frame.Position = UDim2.new(0.5, -170, 0.5, -160)
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.BorderSizePixel = 0
 frame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -48,6 +48,7 @@ exitBtn.TextColor3 = Color3.new(1, 1, 1)
 exitBtn.Font = Enum.Font.GothamBold
 exitBtn.TextSize = 14
 exitBtn.Parent = frame
+
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 6)
 
 exitBtn.MouseButton1Click:Connect(function()
@@ -55,7 +56,7 @@ exitBtn.MouseButton1Click:Connect(function()
 end)
 
 local buttonFrame = Instance.new("Frame")
-buttonFrame.Size = UDim2.new(1, 0, 1, -60)
+buttonFrame.Size = UDim2.new(1, 0, 1, -70)
 buttonFrame.Position = UDim2.new(0, 0, 0, 60)
 buttonFrame.BackgroundTransparency = 1
 buttonFrame.Parent = frame
@@ -97,6 +98,7 @@ for _, mode in ipairs(modes) do
     button.MouseEnter:Connect(function()
         button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
     end)
+
     button.MouseLeave:Connect(function()
         button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     end)
@@ -112,3 +114,26 @@ for _, mode in ipairs(modes) do
         end
     end)
 end
+
+local discordButton = Instance.new("TextButton")
+discordButton.Size = UDim2.new(0, 300, 0, 45)
+discordButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+discordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+discordButton.Text = "Copy Discord Invite Link"
+discordButton.Font = Enum.Font.GothamMedium
+discordButton.TextSize = 20
+discordButton.Parent = buttonFrame
+
+Instance.new("UICorner", discordButton).CornerRadius = UDim.new(0, 8)
+
+discordButton.MouseEnter:Connect(function()
+    discordButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+end)
+
+discordButton.MouseLeave:Connect(function()
+    discordButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+end)
+
+discordButton.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/vFmU8pNcfU")
+end)
