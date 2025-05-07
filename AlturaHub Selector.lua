@@ -1,9 +1,11 @@
 local player = game.Players.LocalPlayer
-local selectionGui = Instance.new("ScreenGui")
-selectionGui.Name = "ModeSelector"
-selectionGui.ResetOnSpawn = false
-selectionGui.IgnoreGuiInset = true
-selectionGui.Parent = player:WaitForChild("PlayerGui")
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AlturaSelectorGui"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.Parent = playerGui
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 340, 0, 260)
@@ -11,14 +13,11 @@ frame.Position = UDim2.new(0.5, -170, 0.5, -130)
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.BorderSizePixel = 0
 frame.AnchorPoint = Vector2.new(0.5, 0.5)
-frame.ClipsDescendants = true
 frame.Active = true
 frame.Draggable = true
-frame.Parent = selectionGui
+frame.Parent = screenGui
 
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = frame
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
 
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 40)
@@ -39,6 +38,21 @@ subtitle.TextColor3 = Color3.fromRGB(180, 180, 180)
 subtitle.Font = Enum.Font.Gotham
 subtitle.TextSize = 14
 subtitle.Parent = frame
+
+local exitBtn = Instance.new("TextButton")
+exitBtn.Size = UDim2.new(0, 25, 0, 25)
+exitBtn.Position = UDim2.new(1, -30, 0, 5)
+exitBtn.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
+exitBtn.Text = "X"
+exitBtn.TextColor3 = Color3.new(1, 1, 1)
+exitBtn.Font = Enum.Font.GothamBold
+exitBtn.TextSize = 14
+exitBtn.Parent = frame
+Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 6)
+
+exitBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
 
 local buttonFrame = Instance.new("Frame")
 buttonFrame.Size = UDim2.new(1, 0, 1, -60)
@@ -68,7 +82,7 @@ local modes = {
     }
 }
 
-for i, mode in ipairs(modes) do
+for _, mode in ipairs(modes) do
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(0, 300, 0, 45)
     button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -76,12 +90,9 @@ for i, mode in ipairs(modes) do
     button.Text = mode.Name
     button.Font = Enum.Font.GothamMedium
     button.TextSize = 20
-    button.LayoutOrder = i
     button.Parent = buttonFrame
 
-    local btnCorner = Instance.new("UICorner")
-    btnCorner.CornerRadius = UDim.new(0, 8)
-    btnCorner.Parent = button
+    Instance.new("UICorner", button).CornerRadius = UDim.new(0, 8)
 
     button.MouseEnter:Connect(function()
         button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
@@ -91,13 +102,13 @@ for i, mode in ipairs(modes) do
     end)
 
     button.MouseButton1Click:Connect(function()
-        selectionGui:Destroy()
+        screenGui:Destroy()
         local success, err = pcall(function()
             local source = game:HttpGet(mode.Script)
             loadstring(source)()
         end)
         if not success then
-            warn("[Selector] Failed to load " .. mode.Name .. ":", err)
+            warn("Failed to load:", err)
         end
     end)
 end
