@@ -26,34 +26,6 @@ local Paragraph = Tabs.Main:CreateParagraph("Paragraph", {
     Content = "This is the Main tab, you will find all the main stuff below."
 })
 
-local PlayerStatsLabel = Tabs.Main:CreateLabel("PlayerStats", {
-    Title = "Player Stats",
-    Content = "Health: 100 | Level: 1 | Energy: 50"
-})
-
-local playerHealth = 100
-local playerLevel = 1
-local playerEnergy = 50
-
-local function UpdatePlayerStats()
-    local statContent = string.format("Health: %d | Level: %d | Energy: %d", playerHealth, playerLevel, playerEnergy)
-    PlayerStatsLabel:SetValue(statContent)
-end
-
-Tabs.Main:CreateButton("SimulateStatChanges", {
-    Title = "Simulate Stat Changes",
-    Content = "Click to simulate a change in stats",
-    Callback = function()
-        playerHealth = playerHealth - 10
-        playerLevel = playerLevel + 1
-        playerEnergy = playerEnergy - 5
-        UpdatePlayerStats()
-    end
-})
-
-UpdatePlayerStats()
-
-
 local Options = Library.Options
 local player = game.Players.LocalPlayer
 
@@ -62,7 +34,7 @@ Tabs.Movement:CreateSlider("WalkSpeedSlider", {
     Title = "Speed",
     Default = 16,
     Min = 0,
-    Max = 200,
+    Max = 500,
     Rounding = 0,
     Callback = function(val)
         if Options.WalkSpeedToggle.Value then
@@ -83,7 +55,7 @@ Tabs.Movement:CreateSlider("JumpPowerSlider", {
     Title = "Jump",
     Default = 50,
     Min = 0,
-    Max = 200,
+    Max = 500,
     Rounding = 0,
     Callback = function(val)
         if Options.JumpPowerToggle.Value then
